@@ -1,0 +1,17 @@
+@import "tailwindcss";
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to right, #f8fafc, #eef2ff);
+}
+
+.card {
+  @apply bg-white/70 backdrop-blur-lg shadow-lg rounded-2xl p-5 transition hover:shadow-xl;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-lg text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:scale-105 transition;
+}
+
+.input {
+  @apply w-full border border-gray-200 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none;
+}
