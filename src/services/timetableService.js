@@ -1,9 +1,14 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/timetable";
+// 👉 LOCAL BACKEND URL
+const API = "http://localhost:5000";
 
-export const saveTimetable = (data) =>
-  axios.post(API, data);
+// ✅ SAVE TIMETABLE
+export const saveTimetable = (data) => {
+  return axios.post(`${API}/api/timetable`, data);
+};
 
-export const getTimetable = (className) =>
-  axios.get(`${API}/${encodeURIComponent(className)}`);
+// ✅ GET TIMETABLE
+export const getTimetable = () => {
+  return axios.get(`${API}/api/timetable`);
+};

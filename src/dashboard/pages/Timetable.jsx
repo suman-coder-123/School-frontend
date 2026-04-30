@@ -36,19 +36,17 @@ const fetchTimetable = async () => {
         Get Timetable
       </button>
 
-      {data && data.schedule.map((d, i) => (
-        <div key={i} className="mt-4 border p-3">
+     {data.schedule.map((d) => (
+  <div key={d.day}>
+    <h3>{d.day}</h3>
 
-          <h2 className="font-bold">{d.day}</h2>
-
-          {d.periods.map((p, j) => (
-            <div key={j}>
-              {p.time} — {p.subject}
-            </div>
-          ))}
-
-        </div>
-      ))}
+    {d.periods.map((p, i) => (
+      <p key={i}>
+        {p.subject} - {p.time}
+      </p>
+    ))}
+  </div>
+))}
 
     </div>
   );
