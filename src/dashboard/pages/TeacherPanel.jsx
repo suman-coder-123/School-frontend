@@ -19,7 +19,7 @@ export default function TeacherPanel() {
       const userId = localStorage.getItem("userId");
 
       const res = await axios.get(
-        `http://localhost:5000/api/teachers/user/${userId}`
+        `https://school-backend-2-ackw.onrender.com/api/teachers/user/${userId}`
       );
 
       setTeacherId(res.data._id); // ✅ REAL teacherId
@@ -53,7 +53,7 @@ export default function TeacherPanel() {
 
  const fetchNotices = async () => {
   const res = await axios.get(
-    "http://localhost:5000/api/notices?target=teacher"
+    "https://school-backend-2-ackw.onrender.com/api/notices?target=teacher"
   );
   setNotices(res.data);
 }; 

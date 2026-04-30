@@ -10,7 +10,7 @@ export default function StudentDashboard() {
 
   const fetchNotices = async () => {
     const res = await axios.get(
-      "http://localhost:5000/api/notices?target=student"
+      "https://school-backend-2-ackw.onrender.com/api/notices?target=student"
     );
     setNotices(res.data);
   };

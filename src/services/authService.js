@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/auth";
+const API = "https://school-backend-2-ackw.onrender.com/api/auth";
 
 // ✅ FIXED
 export const loginUser = (data) => {

@@ -2,8 +2,8 @@ import axios from "axios";
 
 
 export const getResult = (roll) =>
-  axios.get(`http://localhost:5000/api/results/${roll}`);
+  axios.get(`https://school-backend-2-ackw.onrender.com/api/results/${roll}`);
 
 
 export const addResult = (data) =>
-  axios.post("http://localhost:5000/api/results", data);
+  axios.post("https://school-backend-2-ackw.onrender.com/api/results", data);

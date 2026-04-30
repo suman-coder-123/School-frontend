@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 👉 LOCAL BACKEND URL
-const API = "http://localhost:5000";
+const API = "https://school-backend-2-ackw.onrender.com";
 
 // ✅ SAVE TIMETABLE
 export const saveTimetable = (data) => {

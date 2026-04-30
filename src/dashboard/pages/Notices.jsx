@@ -17,7 +17,7 @@ export default function Notices() {
     const role = localStorage.getItem("role") || "student";
 
     const res = await axios.get(
-      `http://localhost:5000/api/notices?target=${role}`
+      `https://school-backend-2-ackw.onrender.com/api/notices?target=${role}`
     );
 
     setNotices(res.data);
@@ -31,7 +31,7 @@ export default function Notices() {
     if (!form.title || !form.message) return;
 
     await axios.post(
-      "http://localhost:5000/api/notices",
+      "https://school-backend-2-ackw.onrender.com/api/notices",
       form
     );
 

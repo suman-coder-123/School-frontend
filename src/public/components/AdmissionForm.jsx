@@ -29,7 +29,7 @@ export default function AdmissionForm() {
       console.log("Sending:", form); // 🔍 debug
 
       await axios.post(
-        "http://localhost:5000/api/enquiries",
+        "https://school-backend-2-ackw.onrender.com/api/enquiries",
         form
       );
 
