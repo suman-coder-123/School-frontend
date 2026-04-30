@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PublicRoutes from "./routes/PublicRoutes";
+import PublicRoutes from "./routes/publicRoutes";
 import DashboardLayout from "./layouts/DashboardLayout";
 import ProtectedRoute from "./dashboard/components/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
+
 
 // Pages
 import Dashboard from "./dashboard/pages/Dashboard";
