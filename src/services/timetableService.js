@@ -1,14 +1,18 @@
 import axios from "axios";
 
-// 👉 LOCAL BACKEND URL
-const API = "https://school-backend-2-ackw.onrender.com";
+const API = "https://school-backend-2-ackw.onrender.com/api";
 
-// ✅ SAVE TIMETABLE
+// SAVE
 export const saveTimetable = (data) => {
-  return axios.post(`${API}/api/timetable`, data);
+  return axios.post(`${API}/timetable`, data);
 };
 
-// ✅ GET TIMETABLE
+// GET ALL
 export const getTimetable = () => {
-  return axios.get(`${API}/api/timetable`);
+  return axios.get(`${API}/timetable`);
+};
+
+// ✅ ADD THIS (IMPORTANT)
+export const getTimetableByClass = (className) => {
+  return axios.get(`${API}/timetable/${className}`);
 };
