@@ -14,7 +14,7 @@ export default function TimetableAdmin() {
   };
 
   const addPeriod = (index) => {
-    const updated = [...schedule];
+    const updated = [...schedule];  
     updated[index].periods.push({ subject: "", time: "" });
     setSchedule(updated);
   };
