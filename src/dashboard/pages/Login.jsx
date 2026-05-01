@@ -15,39 +15,39 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
-  try {
-    const res = await loginUser(form);
+    try {
+      const res = await loginUser(form);
 
-    console.log("LOGIN RESPONSE:", res.data);
+      console.log("LOGIN RESPONSE:", res.data);
 
-    // Save FIRST
- localStorage.setItem("token", res.data.token);
-localStorage.setItem("role", res.data.role);
-localStorage.setItem("userId", res.data.userId);
-localStorage.setItem("name", res.data.name);
+      // Save data
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", res.data.role);
+      localStorage.setItem("userId", res.data.userId);
+      localStorage.setItem("name", res.data.name);
 
-    alert("Login Successful ✅");
+      alert("Login Successful ✅");
 
-   if (res.data.role === "admin") {
-  navigate("/dashboard");
-} else if (res.data.role === "teacher") {
-  navigate("/teacher");
-}
+      if (res.data.role === "admin") {
+        navigate("/dashboard");
+      } else if (res.data.role === "teacher") {
+        navigate("/teacher");
+      }
+    } catch (err) {
+      console.log(err.response?.data || err.message);
+      alert("Login failed");
+    }
+  };
 
-  } catch (err) {
-    console.log(err.response?.data || err.message);
-    alert("Login failed");
-  }
-};
   return (
-    <div className="p-6">
-      <h1 className="text-xl mb-4">Login</h1>
+    <div className="p-6 max-w-md mx-auto">
+      <h1 className="text-xl font-bold mb-4">Login</h1>
 
       <input
         name="email"
         placeholder="Email"
         onChange={handleChange}
-        className="input"
+        className="input w-full mb-2"
       />
 
       <input
@@ -55,15 +55,26 @@ localStorage.setItem("name", res.data.name);
         type="password"
         placeholder="Password"
         onChange={handleChange}
-        className="input"
+        className="input w-full mb-3"
       />
 
       <button
         onClick={handleLogin}
-        className="bg-blue-600 text-white px-4 py-2 rounded mt-3"
+        className="bg-blue-600 text-white px-4 py-2 rounded w-full"
       >
         Login
       </button>
+
+      {/* ✅ SIGN UP LINK */}
+      <p className="mt-4 text-center">
+        Don’t have an account?{" "}
+        <span
+          onClick={() => navigate("/register")}
+          className="text-blue-600 cursor-pointer font-semibold"
+        >
+          Sign Up
+        </span>
+      </p>
     </div>
   );
 }
