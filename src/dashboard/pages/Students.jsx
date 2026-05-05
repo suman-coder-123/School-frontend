@@ -15,15 +15,25 @@ export default function Students() {
     class: "",
     section: "",
   });
+
   const [search, setSearch] = useState("");
+  const [selectedClass, setSelectedClass] = useState(""); // ✅ NEW
 
   useEffect(() => {
     fetchStudents();
+    fetchNotices();
   }, []);
 
   const fetchStudents = async () => {
     const res = await getStudents();
     setStudents(res.data);
+  };
+
+  const fetchNotices = async () => {
+    const res = await axios.get("/api/notices?target=student");
+    if (res.data.length > 0) {
+      toast("📢 New Notice Available!");
+    }
   };
 
   const handleAdd = async () => {
@@ -47,10 +57,15 @@ export default function Students() {
     fetchStudents();
   };
 
-  // 🔍 SEARCH FILTER
-  const filtered = students.filter((s) =>
-    s.name.toLowerCase().includes(search.toLowerCase())
-  );
+  // ✅ UNIQUE CLASSES (dynamic)
+  const uniqueClasses = [...new Set(students.map((s) => s.class))];
+
+  // 🔍 FILTER (NAME + CLASS)
+  const filtered = students.filter((s) => {
+    const matchName = s.name.toLowerCase().includes(search.toLowerCase());
+    const matchClass = selectedClass ? s.class === selectedClass : true;
+    return matchName && matchClass;
+  });
 
   // 🎯 GROUP BY CLASS
   const groupedStudents = filtered.reduce((acc, s) => {
@@ -59,19 +74,6 @@ export default function Students() {
     return acc;
   }, {});
 
-
-
-useEffect(() => {
-  fetchNotices();
-}, []);
-
-const fetchNotices = async () => {
-  const res = await axios.get("/api/notices?target=student");
-
-  if (res.data.length > 0) {
-    toast("📢 New Notice Available!");
-  }
-};
   return (
     <div className="p-6 space-y-6">
 
@@ -114,13 +116,43 @@ const fetchNotices = async () => {
         </button>
       </div>
 
-      {/* SEARCH */}
-      <input
-        placeholder="Search student..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="border p-2 rounded w-full md:w-1/3"
-      />
+      {/* 🔍 SEARCH + CLASS FILTER */}
+      <div className="flex flex-col md:flex-row gap-3">
+
+        {/* Search */}
+        <input
+          placeholder="Search student..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="border p-2 rounded w-full md:w-1/3"
+        />
+
+        {/* Class Filter */}
+        <select
+          value={selectedClass}
+          onChange={(e) => setSelectedClass(e.target.value)}
+          className="border p-2 rounded w-full md:w-1/4"
+        >
+          <option value="">All Classes</option>
+          {uniqueClasses.map((cls) => (
+            <option key={cls} value={cls}>
+              Class {cls}
+            </option>
+          ))}
+        </select>
+
+        {/* Reset Button (optional but useful) */}
+        <button
+          onClick={() => {
+            setSearch("");
+            setSelectedClass("");
+          }}
+          className="bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Reset
+        </button>
+
+      </div>
 
       {/* CLASS-WISE TABLE */}
       {Object.keys(groupedStudents)

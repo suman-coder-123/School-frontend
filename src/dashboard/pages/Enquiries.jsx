@@ -10,7 +10,7 @@ export default function Enquiries() {
 
   const fetchData = async () => {
     const res = await axios.get(
-      "https://school-backend-2-ackw.onrender.com/api/enquiries"
+      "https://smart-school-system-backend.vercel.app/api/enquiries"
     );
     setData(res.data);
   };

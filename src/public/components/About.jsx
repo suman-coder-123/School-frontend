@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export default function About() {
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <div
       id="about"
@@ -36,9 +40,22 @@ export default function About() {
           innovative teaching and strong values.
         </p>
 
+        {/* EXTRA CONTENT (HIDDEN INITIALLY) */}
+        {showMore && (
+          <div className="text-gray-600 text-sm md:text-base space-y-3 mb-4">
+            <p>
+              We provide modern infrastructure, digital classrooms, and
+              co-curricular activities to ensure all-round development.
+            </p>
+            <p>
+              Our experienced faculty focuses on personalized learning,
+              helping every student achieve their full potential.
+            </p>
+          </div>
+        )}
+
         {/* FEATURES */}
         <div className="space-y-4">
-
           <div className="flex gap-3 items-start">
             <div className="bg-blue-100 text-blue-600 p-2 rounded-full">
               🎯
@@ -62,12 +79,14 @@ export default function About() {
               </p>
             </div>
           </div>
-
         </div>
 
         {/* BUTTON */}
-        <button className="mt-6 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
-          Learn More
+        <button
+          onClick={() => setShowMore(!showMore)}
+          className="mt-6 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
+        >
+          {showMore ? "Show Less" : "Learn More"}
         </button>
       </div>
     </div>

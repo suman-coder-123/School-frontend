@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://school-backend-2-ackw.onrender.com/api/students";
+const API = "https://smart-school-system-backend.vercel.app/api/students";
 
 export const getStudents = () => axios.get(API);
 export const addStudent = (data) => axios.post(API, data);

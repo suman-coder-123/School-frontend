@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const API = "https://school-backend-2-ackw.onrender.com/api/dashboard";
+const API = "https://smart-school-system-backend.vercel.app/api/dashboard";
 
 export const getStats = () => axios.get(`${API}/stats`);
 
 export const getAttendanceChart = () =>
-  axios.get("https://school-backend-2-ackw.onrender.com/api/dashboard/attendance-chart");
+  axios.get("https://smart-school-system-backend.vercel.app/api/dashboard/attendance-chart");

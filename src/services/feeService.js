@@ -1,13 +1,13 @@
 import axios from "axios";
 
 export const getFee = (roll) =>
-  axios.get(`https://school-backend-2-ackw.onrender.com/api/fees/${roll}`);
+  axios.get(`https://smart-school-system-backend.vercel.app/api/fees/${roll}`);
 
 export const payFee = (id) =>
-  axios.put(`https://school-backend-2-ackw.onrender.com/api/fees/pay/${id}`);
+  axios.put(`https://smart-school-system-backend.vercel.app/api/fees/pay/${id}`);
 
 export const getAllFees = () =>
-  axios.get("https://school-backend-2-ackw.onrender.com/api/fees");
+  axios.get("https://smart-school-system-backend.vercel.app/api/fees");
 
 export const getStudentFees = (roll) =>
-  axios.get(`https://school-backend-2-ackw.onrender.com/api/fees/student/${roll}`);
+  axios.get(`https://smart-school-system-backend.vercel.app/api/fees/student/${roll}`);

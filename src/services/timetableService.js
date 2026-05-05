@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://school-backend-2-ackw.onrender.com/api";
+const API = "https://smart-school-system-backend.vercel.app/api";
 
 // SAVE
 export const saveTimetable = (data) => {

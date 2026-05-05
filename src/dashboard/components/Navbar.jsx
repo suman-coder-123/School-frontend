@@ -16,7 +16,7 @@ export default function Navbar() {
   const fetchNotices = async () => {
     try {
       const res = await axios.get(
-        "https://school-backend-2-ackw.onrender.com/api/notices?target=student"
+        "https://smart-school-system-backend.vercel.app/api/notices?target=student"
       );
 
       setNotices(res.data);
