@@ -29,7 +29,7 @@ export default function AdmissionForm() {
       console.log("Sending:", form); // 🔍 debug
 
       await axios.post(
-        "https://smart-school-system-backend.vercel.app/api/enquiries",
+        "https://school-backend-2-ackw.onrender.com/api/enquiries",
         form
       );
 

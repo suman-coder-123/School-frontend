@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://smart-school-system-backend.vercel.app/api/attendance";
+const API = "https://school-backend-2-ackw.onrender.com/api/attendance";
 
 export const markAttendance = (data) => {
   console.log("Sending:", data); // 👈 DEBUG
@@ -34,5 +34,5 @@ export const getMonthlySalary = (teacherId, month) =>
 
 export const getMonthlyReport = (teacherId, month) =>
   axios.get(
-    `https://smart-school-system-backend.vercel.app/api/attendance/monthly-report?teacherId=${teacherId}&month=${month}`
+    `https://school-backend-2-ackw.onrender.com/api/attendance/monthly-report?teacherId=${teacherId}&month=${month}`
   );

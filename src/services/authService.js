@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "https://smart-school-system-backend.vercel.app/api/auth";
+const API = "https://school-backend-2-ackw.onrender.com/api/auth";
 
 // ✅ FIXED
 export const loginUser = (data) => {

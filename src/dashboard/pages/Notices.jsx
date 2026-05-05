@@ -17,7 +17,7 @@ export default function Notices() {
     const role = localStorage.getItem("role") || "student";
 
     const res = await axios.get(
-      `https://smart-school-system-backend.vercel.app/api/notices?target=${role}`
+      `https://school-backend-2-ackw.onrender.com/api/notices?target=${role}`
     );
 
     setNotices(res.data);
@@ -31,7 +31,7 @@ export default function Notices() {
     if (!form.title || !form.message) return;
 
     await axios.post(
-      "https://smart-school-system-backend.vercel.app/api/notices",
+      "https://school-backend-2-ackw.onrender.com/api/notices",
       form
     );
 
