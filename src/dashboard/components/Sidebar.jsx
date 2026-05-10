@@ -9,14 +9,17 @@ import {
   Bell,
   Menu,
   X,
-  ClipboardList, CreditCard, CalendarDays,
+  ClipboardList,
+  CreditCard,
+  CalendarDays,
 } from "lucide-react";
+import { adminMenu, teacherMenu, studentMenu } from "../../data/SidebarMenus";
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
+  const role = localStorage.getItem("role");
 
-  const linkStyle =
-    "flex items-center gap-3 px-4 py-2 rounded-lg transition";
+  const linkStyle = "flex items-center gap-3 px-4 py-2 rounded-lg transition";
 
   return (
     <>
@@ -24,7 +27,7 @@ export default function Sidebar() {
       <div className="md:hidden flex justify-between items-start p-4 bg-[#0F172A] text-white">
         <h1 className="font-bold">SchoolMS</h1>
         <button onClick={() => setOpen(!open)}>
-          {open ? < X /> : <Menu />}
+          {open ? <X /> : <Menu />}
         </button>
       </div>
 
@@ -47,13 +50,10 @@ export default function Sidebar() {
         `}
       >
         {/* LOGO */}
-        <h1 className="text-xl font-bold mb-6 text-blue-400">
-          🎓 SchoolMS
-        </h1>
+        <h1 className="text-xl font-bold mb-6 text-blue-400">🎓 SchoolMS</h1>
 
-        {/* NAV */}
         <nav className="space-y-2">
-
+          {/* DASHBOARD */}
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
@@ -68,101 +68,144 @@ export default function Sidebar() {
             Dashboard
           </NavLink>
 
-          <NavLink
-            to="/dashboard/students"
-            className={({ isActive }) =>
-              `${linkStyle} ${
-                isActive
-                  ? "bg-blue-600"
-                  : "text-gray-300 hover:bg-[#1E293B]"
-              }`
-            }
-          >
-            <Users size={18} />
-            Students
-          </NavLink>
+          {/* ADMIN */}
+          {role === "admin" && (
+            <>
+              <NavLink
+                to="/dashboard/students"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <Users size={18} />
+                Students
+              </NavLink>
 
-          <NavLink
-            to="/dashboard/teachers"
-            className={({ isActive }) =>
-              `${linkStyle} ${
-                isActive
-                  ? "bg-blue-600"
-                  : "text-gray-300 hover:bg-[#1E293B]"
-              }`
-            }
-          >
-            <UserCheck size={18} />
-            Teachers
-          </NavLink>
+              <NavLink
+                to="/dashboard/teachers"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <UserCheck size={18} />
+                Teachers
+              </NavLink>
+            </>
+          )}
 
-          <NavLink
-            to="/dashboard/attendance"
-            className={({ isActive }) =>
-              `${linkStyle} ${
-                isActive
-                  ? "bg-blue-600"
-                  : "text-gray-300 hover:bg-[#1E293B]"
-              }`
-            }
-          >
-            <ClipboardCheck size={18} />
-            Attendance
-          </NavLink>
+          {/* ADMIN + TEACHER */}
+          {(role === "admin" || role === "teacher") && (
+            <>
+              <NavLink
+                to="/dashboard/attendance"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <ClipboardCheck size={18} />
+                Attendance
+              </NavLink>
 
+              <NavLink
+                to="/dashboard/add-result"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <ClipboardList size={18} />
+                Add Result
+              </NavLink>
+
+              <NavLink
+                to="/dashboard/timetable"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <CalendarDays size={18} />
+                Timetable
+              </NavLink>
+            </>
+          )}
+
+          {/* STUDENT */}
+          {role === "student" && (
+            <>
+            <NavLink
+  to="/dashboard/my-profile"
+  className={({ isActive }) =>
+    `${linkStyle} ${
+      isActive
+        ? "bg-blue-600"
+        : "text-gray-300 hover:bg-[#1E293B]"
+    }`
+  }
+>
+  <Users size={18} />
+  My Profile
+</NavLink>
+              <NavLink
+                to="/dashboard/my-results"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <ClipboardList size={18} />
+                My Results
+              </NavLink>
+
+              <NavLink
+                to="/dashboard/my-timetable"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <CalendarDays size={18} />
+                Timetable
+              </NavLink>
+            </>
+          )}
+
+          {/* COMMON */}
           <NavLink
             to="/dashboard/notices"
             className={({ isActive }) =>
               `${linkStyle} ${
-                isActive
-                  ? "bg-blue-600"
-                  : "text-gray-300 hover:bg-[#1E293B]"
+                isActive ? "bg-blue-600" : "text-gray-300 hover:bg-[#1E293B]"
               }`
             }
           >
             <Bell size={18} />
             Notices
           </NavLink>
-
-<NavLink
-  to="/dashboard/add-result"
-  className={({ isActive }) =>
-    `${linkStyle} ${
-      isActive
-        ? "bg-blue-600"
-        : "text-gray-300 hover:bg-[#1E293B]"
-    }`
-  }
->
-  <ClipboardList size={18} />
-  Add Result
-</NavLink>
-<NavLink
-  to="/dashboard/fees"
-  className={({ isActive }) =>
-    `${linkStyle} ${
-      isActive
-        ? "bg-blue-600"
-        : "text-gray-300 hover:bg-[#1E293B]"
-    }`
-  }
->
-  <CreditCard size={18} />
-  Fees
-</NavLink>
-<NavLink
-  to="/dashboard/timetable"
-  className={({ isActive }) =>
-    `${linkStyle} ${
-      isActive
-        ? "bg-blue-600"
-        : "text-gray-300 hover:bg-[#1E293B]"
-    }`
-  }
->
-  <CalendarDays size={18} />
-  Timetable
-</NavLink>
         </nav>
 
         {/* USER */}

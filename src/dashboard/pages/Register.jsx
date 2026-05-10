@@ -33,17 +33,17 @@ export default function Register() {
 };
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl mb-4">Register</h1>
+    <div className="p-6 max-w-md mx-auto">
+      <h1 className="text-xl mb-4 font-bold">Register</h1>
 
-      <input name="name" placeholder="Name" onChange={handleChange} className="input" />
-      <input name="email" placeholder="Email" onChange={handleChange} className="input" />
-      <input name="password" placeholder="Password" type="password" onChange={handleChange} className="input" />
+      <input name="name" placeholder="Name" onChange={handleChange}  className="input w-full mb-2" />
+      <input name="email" placeholder="Email" onChange={handleChange}  className="input w-full mb-2" />
+      <input name="password" placeholder="Password" type="password" onChange={handleChange}  className="input w-full mb-2" />
 
-      <select name="role" onChange={handleChange} className="input">
+      <select name="role" onChange={handleChange}  className="input w-full mb-2">
         <option value="student">Student</option>
         <option value="teacher">Teacher</option>
-        <option value="admin">Admin</option>
+        <option value="teacher">Admin</option>
       </select>
 
       <button
@@ -52,6 +52,16 @@ export default function Register() {
       >
         Register
       </button>
+
+       <p className="mt-4 text-center">
+        I have an account?{" "}
+        <span
+          onClick={() => navigate("/login")}
+          className="text-blue-600 cursor-pointer font-semibold"
+        >
+          Sign In
+        </span>
+      </p>
     </div>
   );
 }

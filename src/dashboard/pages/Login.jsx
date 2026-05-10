@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -31,7 +32,9 @@ export default function Login() {
       if (res.data.role === "admin") {
         navigate("/dashboard");
       } else if (res.data.role === "teacher") {
-        navigate("/teacher");
+        navigate("/dashboard");
+      }else if (res.data.role === "student"){
+        navigate("/dashboard")
       }
     } catch (err) {
       console.log(err.response?.data || err.message);
@@ -58,12 +61,21 @@ export default function Login() {
         className="input w-full mb-3"
       />
 
+<div className="flex justify-between">
+
+
       <button
         onClick={handleLogin}
-        className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+        className="bg-blue-600 text-white px-4 py-1 rounded "
       >
         Login
       </button>
+<p className="mt-4 text-center text-blue-600 font-semibold" >
+  <Link to="/forgot-password">
+    Forgot Password?
+  </Link>
+</p>
+</div>
 
       {/* ✅ SIGN UP LINK */}
       <p className="mt-4 text-center">
