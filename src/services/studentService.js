@@ -4,13 +4,12 @@ const API =
   "https://school-backend-2-ackw.onrender.com/api/student";
 
 // ================= TOKEN =================
-
 const getAuthConfig = () => {
   const token = localStorage.getItem("token");
 
   return {
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   };
 };
