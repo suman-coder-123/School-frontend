@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {
+  getMyProfile,
+  updateMyProfile,
+} from "../../services/studentService";
 import toast from "react-hot-toast";
 
 export default function MyProfile() {
@@ -21,8 +25,8 @@ export default function MyProfile() {
 
       const token = localStorage.getItem("token");
 
-      const res = await axios.get(
-        "https://school-backend-2-ackw.onrender.com/api/student/my-profile",
+      const res = await getMyProfile(
+        "http://localhost:5000/api/student/my-profile",
         {
           headers: {
             Authorization: token,
@@ -60,15 +64,7 @@ export default function MyProfile() {
 
       const token = localStorage.getItem("token");
 
-      const res = await axios.put(
-        "https://school-backend-2-ackw.onrender.com/api/student/my-profile",
-        formData,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
+      const res = await updateMyProfile(formData);
 
       toast.success(res.data.message);
 
