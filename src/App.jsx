@@ -18,7 +18,6 @@ import Students from "./dashboard/pages/Students";
 import Teachers from "./dashboard/pages/Teachers";
 import AttendancePage from "./dashboard/pages/AttendancePage";
 import Notices from "./dashboard/pages/Notices";
-import MyProfile from "./dashboard/pages/MyProfile";
 import AddResult from "./dashboard/pages/AddResult";
 import FeeAdmin from "./dashboard/pages/FeeAdmin";
 import TimetableAdmin from "./dashboard/pages/TimetableAdmin";
@@ -124,14 +123,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-  path="my-profile"
-  element={
-    <ProtectedRoute allowedRoles={["student"]}>
-      <MyProfile />
-    </ProtectedRoute>
-  }
-/>
+        
 
           <Route
             path="fees"

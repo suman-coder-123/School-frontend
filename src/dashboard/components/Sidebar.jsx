@@ -151,19 +151,7 @@ export default function Sidebar() {
           {/* STUDENT */}
           {role === "student" && (
             <>
-            <NavLink
-  to="/dashboard/my-profile"
-  className={({ isActive }) =>
-    `${linkStyle} ${
-      isActive
-        ? "bg-blue-600"
-        : "text-gray-300 hover:bg-[#1E293B]"
-    }`
-  }
->
-  <Users size={18} />
-  My Profile
-</NavLink>
+          
               <NavLink
                 to="/dashboard/my-results"
                 className={({ isActive }) =>
