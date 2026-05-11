@@ -1,25 +1,32 @@
 import axios from "axios";
 
-const API = "https://school-backend-2-ackw.onrender.com/api/student";
+const API =
+  "https://school-backend-2-ackw.onrender.com/api/students";
 
-const getConfig = () => {
-  const token = localStorage.getItem("token");
-  return {
-    headers: {
-      // ✅ FIXED: Added "Bearer " prefix
-      Authorization: `Bearer ${token}`,
-    },
-  };
+// ✅ TOKEN
+const getToken = () => {
+  return localStorage.getItem("token");
 };
 
-export const getStudents = () =>
-  axios.get(API, getConfig());
+// ✅ GET
+export const getStudents = () => {
+  return axios.get(API);
+};
 
-export const addStudent = (data) =>
-  axios.post(API, data, getConfig());
+// ✅ ADD
+export const addStudent = (data) => {
+  return axios.post(API, data, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+};
 
-export const updateStudent = (id, data) =>
-  axios.put(`${API}/${id}`, data, getConfig());
-
-export const deleteStudent = (id) =>
-  axios.delete(`${API}/${id}`, getConfig());
+// ✅ DELETE
+export const deleteStudent = (id) => {
+  return axios.delete(`${API}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+};

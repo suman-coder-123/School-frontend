@@ -1,91 +1,74 @@
 import { useEffect, useState } from "react";
+
 import {
   getStudents,
   addStudent,
-  updateStudent,
   deleteStudent,
 } from "../../services/studentService";
-import toast from "react-hot-toast";
-import axios from "axios";
 
 export default function Students() {
+
   const [students, setStudents] = useState([]);
+
   const [form, setForm] = useState({
     name: "",
     class: "",
     section: "",
   });
 
-  const [search, setSearch] = useState("");
-  const [selectedClass, setSelectedClass] = useState(""); // ✅ NEW
-
   useEffect(() => {
     fetchStudents();
-    fetchNotices();
   }, []);
 
   const fetchStudents = async () => {
     const res = await getStudents();
+
     setStudents(res.data);
   };
 
-  const fetchNotices = async () => {
-    const res = await axios.get("/api/notices?target=student");
-    if (res.data.length > 0) {
-      toast("📢 New Notice Available!");
-    }
-  };
-
   const handleAdd = async () => {
-    if (!form.name || !form.class) {
-      return alert("Fill all fields");
-    }
+
+    if (
+      !form.name ||
+      !form.class ||
+      !form.section
+    ) return;
 
     await addStudent(form);
-    setForm({ name: "", class: "", section: "" });
-    fetchStudents();
-  };
 
-  const handleUpdate = async (s) => {
-    await updateStudent(s._id, s);
     fetchStudents();
+
+    setForm({
+      name: "",
+      class: "",
+      section: "",
+    });
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Delete student?")) return;
     await deleteStudent(id);
+
     fetchStudents();
   };
 
-  // ✅ UNIQUE CLASSES (dynamic)
-  const uniqueClasses = [...new Set(students.map((s) => s.class))];
-
-  // 🔍 FILTER (NAME + CLASS)
-  const filtered = students.filter((s) => {
-    const matchName = s.name.toLowerCase().includes(search.toLowerCase());
-    const matchClass = selectedClass ? s.class === selectedClass : true;
-    return matchName && matchClass;
-  });
-
-  // 🎯 GROUP BY CLASS
-  const groupedStudents = filtered.reduce((acc, s) => {
-    if (!acc[s.class]) acc[s.class] = [];
-    acc[s.class].push(s);
-    return acc;
-  }, {});
-
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6">
 
-      <h1 className="text-2xl font-bold">Students</h1>
+      <h1 className="text-2xl font-bold mb-6">
+        Students
+      </h1>
 
-      {/* ADD FORM */}
-      <div className="flex flex-wrap gap-3">
+      {/* FORM */}
+      <div className="flex gap-3 mb-6">
+
         <input
           placeholder="Name"
           value={form.name}
           onChange={(e) =>
-            setForm({ ...form, name: e.target.value })
+            setForm({
+              ...form,
+              name: e.target.value,
+            })
           }
           className="border p-2 rounded"
         />
@@ -94,7 +77,10 @@ export default function Students() {
           placeholder="Class"
           value={form.class}
           onChange={(e) =>
-            setForm({ ...form, class: e.target.value })
+            setForm({
+              ...form,
+              class: e.target.value,
+            })
           }
           className="border p-2 rounded"
         />
@@ -103,157 +89,66 @@ export default function Students() {
           placeholder="Section"
           value={form.section}
           onChange={(e) =>
-            setForm({ ...form, section: e.target.value })
+            setForm({
+              ...form,
+              section: e.target.value,
+            })
           }
           className="border p-2 rounded"
         />
 
         <button
           onClick={handleAdd}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-blue-600 text-white px-4 rounded"
         >
           Add
         </button>
+
       </div>
 
-      {/* 🔍 SEARCH + CLASS FILTER */}
-      <div className="flex flex-col md:flex-row gap-3">
+      {/* TABLE */}
+      <table className="w-full bg-white shadow rounded">
 
-        {/* Search */}
-        <input
-          placeholder="Search student..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="border p-2 rounded w-full md:w-1/3"
-        />
+        <thead className="bg-gray-100">
 
-        {/* Class Filter */}
-        <select
-          value={selectedClass}
-          onChange={(e) => setSelectedClass(e.target.value)}
-          className="border p-2 rounded w-full md:w-1/4"
-        >
-          <option value="">All Classes</option>
-          {uniqueClasses.map((cls) => (
-            <option key={cls} value={cls}>
-              Class {cls}
-            </option>
+          <tr>
+            <th className="p-3">Name</th>
+            <th>Class</th>
+            <th>Section</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          {students.map((s) => (
+
+            <tr key={s._id} className="border-t">
+
+              <td className="p-3">{s.name}</td>
+              <td>{s.class}</td>
+              <td>{s.section}</td>
+              <td>{s.status}</td>
+
+              <td>
+                <button
+                  onClick={() =>
+                    handleDelete(s._id)
+                  }
+                  className="bg-red-500 text-white px-3 py-1 rounded"
+                >
+                  Delete
+                </button>
+              </td>
+
+            </tr>
           ))}
-        </select>
 
-        {/* Reset Button (optional but useful) */}
-        <button
-          onClick={() => {
-            setSearch("");
-            setSelectedClass("");
-          }}
-          className="bg-gray-500 text-white px-4 py-2 rounded"
-        >
-          Reset
-        </button>
+        </tbody>
 
-      </div>
-
-      {/* CLASS-WISE TABLE */}
-      {Object.keys(groupedStudents)
-        .sort((a, b) => a - b)
-        .map((cls) => (
-          <div key={cls} className="mb-8">
-
-            <h2 className="text-xl font-semibold mb-2">
-              Class {cls}
-            </h2>
-
-            <div className="bg-white shadow rounded overflow-x-auto">
-
-              <table className="w-full text-sm">
-
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="p-3 text-left">Name</th>
-                    <th className="p-3 text-left">Section</th>
-                    <th className="p-3 text-left">Status</th>
-                    <th className="p-3 text-left">Action</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {groupedStudents[cls].map((s) => (
-                    <tr key={s._id} className="border-b">
-
-                      <td className="p-3">
-                        <input
-                          value={s.name}
-                          onChange={(e) => {
-                            const updated = students.map((stu) =>
-                              stu._id === s._id
-                                ? { ...stu, name: e.target.value }
-                                : stu
-                            );
-                            setStudents(updated);
-                          }}
-                          className="border px-2 py-1 rounded"
-                        />
-                      </td>
-
-                      <td className="p-3">
-                        <input
-                          value={s.section}
-                          onChange={(e) => {
-                            const updated = students.map((stu) =>
-                              stu._id === s._id
-                                ? { ...stu, section: e.target.value }
-                                : stu
-                            );
-                            setStudents(updated);
-                          }}
-                          className="border px-2 py-1 rounded"
-                        />
-                      </td>
-
-                      <td className="p-3">
-                        <select
-                          value={s.status}
-                          onChange={(e) => {
-                            const updated = students.map((stu) =>
-                              stu._id === s._id
-                                ? { ...stu, status: e.target.value }
-                                : stu
-                            );
-                            setStudents(updated);
-                          }}
-                          className="border px-2 py-1 rounded"
-                        >
-                          <option>Active</option>
-                          <option>Inactive</option>
-                        </select>
-                      </td>
-
-                      <td className="p-3 space-x-2">
-                        <button
-                          onClick={() => handleUpdate(s)}
-                          className="bg-green-600 text-white px-2 py-1 rounded"
-                        >
-                          Save
-                        </button>
-
-                        <button
-                          onClick={() => handleDelete(s._id)}
-                          className="bg-red-500 text-white px-2 py-1 rounded"
-                        >
-                          Delete
-                        </button>
-                      </td>
-
-                    </tr>
-                  ))}
-                </tbody>
-
-              </table>
-
-            </div>
-          </div>
-        ))}
+      </table>
 
     </div>
   );
