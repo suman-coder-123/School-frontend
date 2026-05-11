@@ -1,44 +1,40 @@
+// frontend/src/services/studentService.js
+
 import axios from "axios";
 
 const API =
   "https://school-backend-2-ackw.onrender.com/api/student";
 
-// ================= TOKEN =================
-const getAuthConfig = () => {
-  const token = localStorage.getItem("token");
+const getConfig = () => {
+
+  const token =
+    localStorage.getItem("token");
 
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
     },
   };
 };
 
-// ================= ADMIN =================
-
 export const getStudents = () =>
-  axios.get(API, getAuthConfig());
+  axios.get(API, getConfig());
 
 export const addStudent = (data) =>
-  axios.post(API, data, getAuthConfig());
+  axios.post(API, data, getConfig());
 
-export const updateStudent = (id, data) =>
-  axios.put(`${API}/${id}`, data, getAuthConfig());
-
-export const deleteStudent = (id) =>
-  axios.delete(`${API}/${id}`, getAuthConfig());
-
-// ================= STUDENT =================
-
-export const getMyProfile = () =>
-  axios.get(
-    `${API}/my-profile`,
-    getAuthConfig()
+export const updateStudent = (
+  id,
+  data
+) =>
+  axios.put(
+    `${API}/${id}`,
+    data,
+    getConfig()
   );
 
-export const updateMyProfile = (data) =>
-  axios.put(
-    `${API}/my-profile`,
-    data,
-    getAuthConfig()
+export const deleteStudent = (id) =>
+  axios.delete(
+    `${API}/${id}`,
+    getConfig()
   );
