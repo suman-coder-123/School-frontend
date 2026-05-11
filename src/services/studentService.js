@@ -1,18 +1,13 @@
-// frontend/src/services/studentService.js
-
 import axios from "axios";
 
-const API =
-  "https://school-backend-2-ackw.onrender.com/api/student";
+const API = "https://school-backend-2-ackw.onrender.com/api/student";
 
 const getConfig = () => {
-
-  const token =
-    localStorage.getItem("token");
-
+  const token = localStorage.getItem("token");
   return {
     headers: {
-      Authorization: token,
+      // ✅ FIXED: Added "Bearer " prefix
+      Authorization: `Bearer ${token}`,
     },
   };
 };
@@ -23,18 +18,8 @@ export const getStudents = () =>
 export const addStudent = (data) =>
   axios.post(API, data, getConfig());
 
-export const updateStudent = (
-  id,
-  data
-) =>
-  axios.put(
-    `${API}/${id}`,
-    data,
-    getConfig()
-  );
+export const updateStudent = (id, data) =>
+  axios.put(`${API}/${id}`, data, getConfig());
 
 export const deleteStudent = (id) =>
-  axios.delete(
-    `${API}/${id}`,
-    getConfig()
-  );
+  axios.delete(`${API}/${id}`, getConfig());
