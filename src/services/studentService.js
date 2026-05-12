@@ -13,11 +13,10 @@ export const getStudents = () => {
   return axios.get(API);
 };
 
-// ✅ ADD
 export const addStudent = (data) => {
   return axios.post(API, data, {
     headers: {
-      Authorization: `Bearer ${getToken()}`,
+      Authorization: `Bearer ${getToken()}`, // ✅ now works correctly
     },
   });
 };

@@ -27,24 +27,16 @@ export default function Students() {
   };
 
   const handleAdd = async () => {
+  if (!form.name || !form.class || !form.section) return;
 
-    if (
-      !form.name ||
-      !form.class ||
-      !form.section
-    ) return;
-
-    await addStudent(form);
-
-    fetchStudents();
-
-    setForm({
-      name: "",
-      class: "",
-      section: "",
-    });
-  };
-
+  try {
+    await addStudent(form);      // ✅ if this fails, caught below
+    fetchStudents();             // ✅ only runs if add succeeded
+    setForm({ name: "", class: "", section: "" });
+  } catch (err) {
+    alert(err.response?.data?.message || "Failed to add student. Check your login.");
+  }
+};
   const handleDelete = async (id) => {
     await deleteStudent(id);
 
