@@ -4,105 +4,205 @@ export default function Hero() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-[#0F2A5F] text-white px-5 py-10 md:p-10 rounded-2xl relative overflow-hidden">
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        
-        {/* LEFT CONTENT */}
-        <div className="text-center md:text-left">
-          
-          <p className="text-xs md:text-sm bg-blue-500 inline-block px-3 py-1 rounded-full mb-4">
-            Excellence in Education
-          </p>
+<div className="relative overflow-hidden bg-gradient-to-br from-[#07152F] via-[#0F2A5F] to-[#133B7A] text-white rounded-[32px] mt-3 px-6 py-10 md:px-12 md:py-14 shadow-2xl">
 
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-4">
-            Shaping <span className="text-yellow-400">Future Leaders</span>
-            <br className="hidden sm:block" />
-            with Excellence
-          </h1>
+  {/* BACKGROUND GLOW */}
+  <div className="absolute top-0 left-0 w-72 h-72 bg-blue-500/20 blur-3xl rounded-full"></div>
+  <div className="absolute bottom-0 right-0 w-80 h-80 bg-cyan-400/10 blur-3xl rounded-full"></div>
 
-          <p className="text-gray-300 text-sm md:text-base mb-6">
-            Join our school and build a strong foundation for success.
-          </p>
+  <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-          {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
-            
-            <button
-              onClick={() =>
-                document
-                  .getElementById("contact")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="bg-green-600 w-full sm:w-auto px-6 py-3 rounded-lg"
-            >
-              Apply for Admission
-            </button>
+    {/* LEFT CONTENT */}
+    <div className="text-center lg:text-left">
 
-            <button className="border border-white w-full sm:w-auto px-5 py-3 rounded-lg">
-              Virtual Tour
-            </button>
+      {/* TAG */}
+      <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full mb-6">
+
+        <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+
+        <p className="text-sm text-blue-100">
+          Admissions Open For 2026
+        </p>
+
+      </div>
+
+      {/* HEADING */}
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
+
+        Building
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-400">
+          {" "}Future Leaders
+        </span>
+
+        <br />
+
+        Through Modern Education
+
+      </h1>
+
+      {/* DESCRIPTION */}
+      <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8">
+
+        Experience world-class education, innovative learning,
+        expert faculty, and a vibrant campus environment
+        designed for academic excellence and future success.
+
+      </p>
+
+      {/* BUTTONS */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+
+        <button
+          onClick={() =>
+            document
+              .getElementById("contact")
+              ?.scrollIntoView({
+                behavior: "smooth",
+              })
+          }
+          className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-105 transition-all duration-300 px-7 py-4 rounded-xl font-semibold shadow-xl"
+        >
+          Apply For Admission
+        </button>
+
+        <button className="border border-white/20 backdrop-blur-md bg-white/5 hover:bg-white/10 transition px-7 py-4 rounded-xl font-semibold">
+          Explore Campus
+        </button>
+
+      </div>
+
+      {/* STATS */}
+      <div className="grid grid-cols-3 gap-4 mt-12">
+
+        {[
+          {
+            number: "98%",
+            label: "Success Rate",
+          },
+          {
+            number: "120+",
+            label: "Expert Teachers",
+          },
+          {
+            number: "3500+",
+            label: "Students",
+          },
+        ].map((item, i) => (
+
+          <div
+            key={i}
+            className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 text-center"
+          >
+
+            <h2 className="text-2xl md:text-3xl font-bold text-cyan-300">
+              {item.number}
+            </h2>
+
+            <p className="text-sm text-gray-300 mt-1">
+              {item.label}
+            </p>
 
           </div>
+        ))}
 
-          {/* Stats */}
-          <div className="flex justify-between sm:justify-start gap-6 mt-8 text-center md:text-left">
-            
-            <div>
-              <h2 className="text-lg md:text-xl font-bold">98%</h2>
-              <p className="text-xs md:text-sm text-gray-400">Success Rate</p>
-            </div>
+      </div>
 
-            <div>
-              <h2 className="text-lg md:text-xl font-bold">120+</h2>
-              <p className="text-xs md:text-sm text-gray-400">Teachers</p>
-            </div>
+    </div>
 
-            <div>
-              <h2 className="text-lg md:text-xl font-bold">3500+</h2>
-              <p className="text-xs md:text-sm text-gray-400">Students</p>
-            </div>
+    {/* RIGHT PREMIUM PANEL */}
+    <div className="relative">
 
-          </div>
-        </div>
+      {/* GLOW */}
+      <div className="absolute inset-0 bg-cyan-400/10 blur-3xl rounded-full"></div>
 
-        {/* RIGHT FORM */}
-        <div className="bg-[#2E4A7D] p-5 md:p-6 rounded-2xl shadow-xl text-white space-y-4 w-full">
-          
-          <h2 className="text-base md:text-lg font-semibold text-center md:text-left">
-            Quick Access
+      <div className="relative bg-white/10 backdrop-blur-2xl border border-white/10 rounded-[28px] p-6 md:p-8 shadow-2xl">
+
+        {/* TOP */}
+        <div className="mb-8">
+
+          <p className="text-cyan-300 text-sm mb-2">
+            Why Choose Us
+          </p>
+
+          <h2 className="text-3xl font-bold leading-snug">
+            Excellence Beyond
+            <br />
+            Traditional Learning
           </h2>
 
-          {/* Cards */}
+        </div>
+
+        {/* CARDS */}
+        <div className="space-y-4">
+
           {[
-            { label: "💳 Fee Payment", path: "/fee" },
-            { label: "📊 Exam Results", path: "/results" },
-            { label: "📅 TimeTable", path: "/timetable" },
-            { label: "📊 Dashboard", path: "/dashboard" },
+            {
+              icon: "🏆",
+              title: "Academic Excellence",
+              desc: "Consistently top-ranked student performance",
+            },
+            {
+              icon: "🎓",
+              title: "Smart Classrooms",
+              desc: "Advanced digital learning infrastructure",
+            },
+            {
+              icon: "🌍",
+              title: "Global Opportunities",
+              desc: "Preparing students for international success",
+            },
+            {
+              icon: "🚀",
+              title: "Future-Focused Education",
+              desc: "Innovation, creativity & leadership skills",
+            },
           ].map((item, i) => (
+
             <div
               key={i}
-              onClick={() => navigate(item.path)}
-              className="flex justify-between items-center p-4 bg-white/10 rounded-lg cursor-pointer hover:bg-white/20 transition"
+              className="group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-5 transition duration-300 cursor-pointer"
             >
-              <span className="text-sm md:text-base">{item.label}</span>
-              <span>→</span>
+
+              <div className="flex items-start gap-4">
+
+                <div className="text-3xl">
+                  {item.icon}
+                </div>
+
+                <div>
+
+                  <h3 className="font-semibold text-lg">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-300 mt-1">
+                    {item.desc}
+                  </p>
+
+                </div>
+
+              </div>
+
             </div>
           ))}
 
-          {/* WhatsApp */}
-          <a
-            href="https://wa.me/91XXXXXXXXXX"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block text-center bg-green-500 py-3 rounded-lg mt-4 text-sm md:text-base"
-          >
-            💬 Chat on WhatsApp
-          </a>
-
         </div>
 
+        {/* CTA */}
+        <a
+          href="https://wa.me/91XXXXXXXXXX"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-center mt-8 bg-gradient-to-r from-green-500 to-emerald-400 hover:scale-[1.02] transition py-4 rounded-2xl font-semibold shadow-xl"
+        >
+          💬 Connect With Admission Team
+        </a>
+
       </div>
+
     </div>
-  );
+
+  </div>
+
+</div>  );
 }

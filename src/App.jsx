@@ -21,12 +21,13 @@ import Notices from "./dashboard/pages/Notices";
 import AddResult from "./dashboard/pages/AddResult";
 import FeeAdmin from "./dashboard/pages/FeeAdmin";
 import TimetableAdmin from "./dashboard/pages/TimetableAdmin";
-
+import TeacherPanel from "./dashboard/pages/TeacherPanel"
 // STUDENT PAGES
 import ResultsPage from "./dashboard/pages/ResultsPage";
 import FeePage from "./dashboard/pages/FeePage";
 import Timetable from "./dashboard/pages/Timetable";
-import NoticesPage from "./dashboard/pages/NoticesPage";
+import NoticesPage from "./dashboard/pages/NoticesPage";  
+import Events from "./dashboard/pages/Events";
 
 export default function App() {
   return (
@@ -60,6 +61,10 @@ export default function App() {
           {/* COMMON */}
           <Route index element={<Dashboard />} />
           <Route path="notices" element={<Notices />} />
+          <Route
+  path="events"
+  element={<Events />}
+/>
 
           {/* ADMIN ONLY */}
           <Route
@@ -103,6 +108,17 @@ export default function App() {
             }
           />
 
+
+          <Route
+            path="teacherPanel"
+            element={
+              <ProtectedRoute
+                allowedRoles={["teacher"]}
+              >
+                <TeacherPanel />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="timetable"
             element={

@@ -71,19 +71,7 @@ export default function Sidebar() {
           {/* ADMIN */}
           {role === "admin" && (
             <>
-              <NavLink
-                to="/dashboard/students"
-                className={({ isActive }) =>
-                  `${linkStyle} ${
-                    isActive
-                      ? "bg-blue-600"
-                      : "text-gray-300 hover:bg-[#1E293B]"
-                  }`
-                }
-              >
-                <Users size={18} />
-                Students
-              </NavLink>
+             
 
               <NavLink
                 to="/dashboard/teachers"
@@ -98,13 +86,8 @@ export default function Sidebar() {
                 <UserCheck size={18} />
                 Teachers
               </NavLink>
-            </>
-          )}
 
-          {/* ADMIN + TEACHER */}
-          {(role === "admin" || role === "teacher") && (
-            <>
-              <NavLink
+                <NavLink
                 to="/dashboard/attendance"
                 className={({ isActive }) =>
                   `${linkStyle} ${
@@ -116,6 +99,38 @@ export default function Sidebar() {
               >
                 <ClipboardCheck size={18} />
                 Attendance
+              </NavLink>
+            </>
+          )}
+
+          {/* ADMIN + TEACHER */}
+          {(role === "admin" || role === "teacher") && (
+            <>
+             <NavLink
+                to="/dashboard/students"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <Users size={18} />
+                Students
+              </NavLink>
+              <NavLink
+                to="/dashboard/teacherPanel"
+                className={({ isActive }) =>
+                  `${linkStyle} ${
+                    isActive
+                      ? "bg-blue-600"
+                      : "text-gray-300 hover:bg-[#1E293B]"
+                  }`
+                }
+              >
+                <ClipboardCheck size={18} />
+               Attendance
               </NavLink>
 
               <NavLink
@@ -129,7 +144,7 @@ export default function Sidebar() {
                 }
               >
                 <ClipboardList size={18} />
-                Add Result
+                Add-Result 
               </NavLink>
 
               <NavLink
@@ -194,6 +209,22 @@ export default function Sidebar() {
             <Bell size={18} />
             Notices
           </NavLink>
+          <NavLink
+  to="/dashboard/events"
+  className={({ isActive }) =>
+    `${linkStyle} ${
+      isActive
+        ? "bg-blue-600"
+        : "text-gray-300 hover:bg-[#1E293B]"
+    }`
+  }
+>
+
+  <span>📅</span>
+
+  Events
+
+</NavLink>
         </nav>
 
         {/* USER */}

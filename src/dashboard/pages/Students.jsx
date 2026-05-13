@@ -16,32 +16,84 @@ export default function Students() {
     section: "",
   });
 
+  // 🔍 SEARCH
+  const [search, setSearch] = useState("");
+
+  // 🎯 FILTER
+  const [selectedClass, setSelectedClass] =
+    useState("");
+
   useEffect(() => {
     fetchStudents();
   }, []);
 
   const fetchStudents = async () => {
+
     const res = await getStudents();
 
     setStudents(res.data);
   };
 
   const handleAdd = async () => {
-  if (!form.name || !form.class || !form.section) return;
 
-  try {
-    await addStudent(form);      // ✅ if this fails, caught below
-    fetchStudents();             // ✅ only runs if add succeeded
-    setForm({ name: "", class: "", section: "" });
-  } catch (err) {
-    alert(err.response?.data?.message || "Failed to add student. Check your login.");
-  }
-};
+    if (
+      !form.name ||
+      !form.class ||
+      !form.section
+    ) return;
+
+    try {
+
+      await addStudent(form);
+
+      fetchStudents();
+
+      setForm({
+        name: "",
+        class: "",
+        section: "",
+      });
+
+    } catch (err) {
+
+      alert(
+        err.response?.data?.message ||
+        "Failed to add student"
+      );
+    }
+  };
+
   const handleDelete = async (id) => {
+
     await deleteStudent(id);
 
     fetchStudents();
   };
+
+  // 🎯 UNIQUE CLASSES
+  const uniqueClasses = [
+    ...new Set(
+      students.map((s) => s.class)
+    ),
+  ];
+
+  // 🔍 FILTERED STUDENTS
+  const filteredStudents = students.filter(
+    (s) => {
+
+      const matchName =
+        s.name
+          .toLowerCase()
+          .includes(search.toLowerCase());
+
+      const matchClass =
+        selectedClass
+          ? s.class === selectedClass
+          : true;
+
+      return matchName && matchClass;
+    }
+  );
 
   return (
     <div className="p-6">
@@ -50,8 +102,8 @@ export default function Students() {
         Students
       </h1>
 
-      {/* FORM */}
-      <div className="flex gap-3 mb-6">
+      {/* ADD FORM */}
+      <div className="flex flex-wrap gap-3 mb-6">
 
         <input
           placeholder="Name"
@@ -98,49 +150,148 @@ export default function Students() {
 
       </div>
 
-      {/* TABLE */}
-      <table className="w-full bg-white shadow rounded">
+      {/* 🔍 SEARCH + FILTER */}
+      <div className="flex flex-wrap gap-3 mb-6">
 
-        <thead className="bg-gray-100">
+        {/* SEARCH */}
+        <input
+          type="text"
+          placeholder="Search student..."
+          value={search}
+          onChange={(e) =>
+            setSearch(e.target.value)
+          }
+          className="border p-2 rounded"
+        />
 
-          <tr>
-            <th className="p-3">Name</th>
-            <th>Class</th>
-            <th>Section</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
+        {/* FILTER */}
+        <select
+          value={selectedClass}
+          onChange={(e) =>
+            setSelectedClass(e.target.value)
+          }
+          className="border p-2 rounded"
+        >
 
-        </thead>
+          <option value="">
+            All Classes
+          </option>
 
-        <tbody>
-
-          {students.map((s) => (
-
-            <tr key={s._id} className="border-t">
-
-              <td className="p-3">{s.name}</td>
-              <td>{s.class}</td>
-              <td>{s.section}</td>
-              <td>{s.status}</td>
-
-              <td>
-                <button
-                  onClick={() =>
-                    handleDelete(s._id)
-                  }
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                >
-                  Delete
-                </button>
-              </td>
-
-            </tr>
+          {uniqueClasses.map((cls) => (
+            <option
+              key={cls}
+              value={cls}
+            >
+              Class {cls}
+            </option>
           ))}
 
-        </tbody>
+        </select>
 
-      </table>
+        {/* RESET */}
+        <button
+          onClick={() => {
+            setSearch("");
+            setSelectedClass("");
+          }}
+          className="bg-gray-500 text-white px-4 rounded"
+        >
+          Reset
+        </button>
+
+      </div>
+
+      {/* TABLE */}
+      <div className="overflow-x-auto">
+
+        <table className="w-full bg-white shadow rounded">
+
+          <thead className="bg-gray-100">
+
+            <tr>
+              <th className="p-3">
+                Name
+              </th>
+
+              <th>
+                Class
+              </th>
+
+              <th>
+                Section
+              </th>
+
+              <th>
+                Status
+              </th>
+
+              <th>
+                Action
+              </th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {filteredStudents.map((s) => (
+
+              <tr
+                key={s._id}
+                className="border-t text-center"
+              >
+
+                <td className="p-3">
+                  {s.name}
+                </td>
+
+                <td>
+                  {s.class}
+                </td>
+
+                <td>
+                  {s.section}
+                </td>
+
+                <td>
+                  {s.status}
+                </td>
+
+                <td>
+
+                  <button
+                    onClick={() =>
+                      handleDelete(s._id)
+                    }
+                    className="bg-red-500 text-white px-3 py-1 rounded"
+                  >
+                    Delete
+                  </button>
+
+                </td>
+
+              </tr>
+            ))}
+
+            {/* EMPTY */}
+            {filteredStudents.length === 0 && (
+              <tr>
+
+                <td
+                  colSpan="5"
+                  className="text-center p-5 text-gray-500"
+                >
+                  No students found
+                </td>
+
+              </tr>
+            )}
+
+          </tbody>
+
+        </table>
+
+      </div>
 
     </div>
   );

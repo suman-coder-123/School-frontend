@@ -11,15 +11,15 @@ export const adminMenu = [
 
 export const teacherMenu = [
   { name: "Dashboard", path: "/dashboard" },
-  { name: "Attendance", path: "/attendance" },
   { name: "Add Result", path: "/add-result" },
+    { name: "Students", path: "/students" },
   { name: "Timetable", path: "/timetable" },
   { name: "Notices", path: "/notices" },
 ];
 
 export const studentMenu = [
   { name: "Dashboard", path: "/dashboard" },
-  { name: "My Profile", path: "/my-profile" },
-  { name: "My Results", path: "/my-results" },
+    { name: "My Results", path: "/my-results" },
   { name: "Timetable", path: "/timetable" },
+
 ];
