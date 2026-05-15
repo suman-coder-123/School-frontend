@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { getStats } from "../../services/dashboardService";
 import axios from "axios";
 
+
 export default function Dashboard() {
 
   const [notices, setNotices] =
+  useState([]);
+  const [events, setEvents] =
   useState([]);
   const role =
     localStorage.getItem("role");
@@ -24,7 +27,8 @@ export default function Dashboard() {
     fetchStats();
 
   }, []);
-const fetchStats = async () => {
+
+  const fetchStats = async () => {
 
   try {
 
@@ -34,10 +38,11 @@ const fetchStats = async () => {
 
     setStats(res.data);
 
-    // NOTICES
+    // ROLE
     const role =
       localStorage.getItem("role");
 
+    // NOTICES
     const noticeRes =
       await axios.get(
         `https://school-backend-2-ackw.onrender.com/api/notices?target=${role}`
@@ -45,6 +50,16 @@ const fetchStats = async () => {
 
     setNotices(
       noticeRes.data
+    );
+
+    // EVENTS
+    const eventRes =
+      await axios.get(
+        `https://school-backend-2-ackw.onrender.com/api/events?target=${role}`
+      );
+
+    setEvents(
+      eventRes.data
     );
 
   } catch (err) {
@@ -329,64 +344,69 @@ const fetchStats = async () => {
 
           <div className="space-y-5">
 
-            {[
-              {
-                title: "Annual Function",
-                date: "25 Feb 2026",
-              },
-              {
-                title: "Sports Day",
-                date: "2 March 2026",
-              },
-              {
-                title: "PTM Meeting",
-                date: "10 March 2026",
-              },
-              {
-                title: "Science Fair",
-                date: "18 March 2026",
-              },
-            ].map((event, i) => (
+{events.length > 0 ? (
 
-              <div
-                key={i}
-                className="flex items-center justify-between p-4 rounded-2xl bg-[#F8FAFC] border border-gray-100"
-              >
+  events.map((event, i) => (
 
-                <div className="flex items-center gap-4">
+    <div
+      key={i}
+      className="flex items-center justify-between p-4 rounded-2xl bg-[#F8FAFC] border border-gray-100"
+    >
 
-                  <div className="w-12 h-12 rounded-2xl bg-[#07152F] text-white flex items-center justify-center text-xl">
+      <div className="flex items-center gap-4">
 
-                    📅
+        <div className="w-12 h-12 rounded-2xl bg-[#07152F] text-white flex items-center justify-center text-xl">
 
-                  </div>
+          📅
 
-                  <div>
+        </div>
 
-                    <h3 className="font-semibold text-[#07152F]">
+        <div>
 
-                      {event.title}
+          <h3 className="font-semibold text-[#07152F]">
 
-                    </h3>
+            {event.title}
 
-                    <p className="text-sm text-gray-500">
+          </h3>
 
-                      Upcoming Event
+          <p className="text-sm text-gray-500">
 
-                    </p>
+            {event.description}
 
-                  </div>
+          </p>
 
-                </div>
+        </div>
 
-                <p className="text-sm font-medium text-gray-600">
+      </div>
 
-                  {event.date}
+      <div className="text-right">
 
-                </p>
+        <p className="text-sm font-medium text-gray-700">
 
-              </div>
-            ))}
+          {event.date}
+
+        </p>
+
+        <p className="text-xs text-gray-500 mt-1">
+
+          {event.time}
+
+        </p>
+
+      </div>
+
+    </div>
+  ))
+
+) : (
+
+  <p className="text-gray-500">
+
+    No upcoming events
+
+  </p>
+
+)}
 
           </div>
 

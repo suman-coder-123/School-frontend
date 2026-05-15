@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-
+const navigate = useNavigate();
   const [scrolled, setScrolled] =
     useState(false);
 
@@ -117,10 +118,9 @@ export default function Navbar() {
 
             {/* DASHBOARD */}
             <button
-              onClick={() =>
-                window.location.href =
-                  "/dashboard"
-              }
+             onClick={() =>
+  navigate("/dashboard")
+}
               className="px-5 py-2.5 rounded-xl border border-gray-300 text-[#07152F] hover:bg-gray-100 transition-all duration-300 font-medium"
             >
 
@@ -210,8 +210,7 @@ export default function Navbar() {
           {/* DASHBOARD */}
           <button
             onClick={() => {
-              window.location.href =
-                "/dashboard";
+             navigate("/dashboard")
 
               setMenuOpen(false);
             }}
